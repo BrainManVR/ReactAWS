@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From C#/MATLAB to Full Stack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Tailwind slate-900 */
+            color: #f8fafc; /* Tailwind slate-50 */
+        }
+        
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-block {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        /* Syntax highlighting mock styles */
+        .keyword { color: #c678dd; }
+        .type { color: #e5c07b; }
+        .string { color: #98c379; }
+        .comment { color: #64748b; font-style: italic; }
+        .function { color: #61afef; }
+        .tag { color: #e06c75; }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden selection:bg-blue-500/30">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-slate-800 border-r border-slate-700 flex flex-col hidden md:flex h-full">
+        <div class="p-6">
+            <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                FullStack Bridge
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">C#/MATLAB to Web</p>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-2">
+            <button onclick="switchTab('paradigm')" id="btn-paradigm" class="w-full text-left px-4 py-2 rounded-md transition-colors bg-blue-600/20 text-blue-400 font-medium">
+                1. The Paradigm Shift
+            </button>
+            <button onclick="switchTab('react')" id="btn-react" class="w-full text-left px-4 py-2 rounded-md transition-colors text-slate-300 hover:bg-slate-700/50 hover:text-white">
+                2. React (Frontend)
+            </button>
+            <button onclick="switchTab('aws')" id="btn-aws" class="w-full text-left px-4 py-2 rounded-md transition-colors text-slate-300 hover:bg-slate-700/50 hover:text-white">
+                3. AWS (Backend)
+            </button>
+            <button onclick="switchTab('communication')" id="btn-communication" class="w-full text-left px-4 py-2 rounded-md transition-colors text-slate-300 hover:bg-slate-700/50 hover:text-white">
+                4. The Bridge (APIs)
+            </button>
+            <button onclick="switchTab('rosetta')" id="btn-rosetta" class="w-full text-left px-4 py-2 rounded-md transition-colors text-slate-300 hover:bg-slate-700/50 hover:text-white">
+                5. Rosetta Stone
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-slate-700">
+            <div class="text-xs text-slate-500">Interactive Guide v1.0</div>
+        </div>
+    </aside>
+
+    <!-- Mobile Nav Header -->
+    <div class="md:hidden fixed top-0 w-full bg-slate-800 border-b border-slate-700 z-50 flex items-center justify-between p-4">
+        <h1 class="text-lg font-bold text-blue-400">FullStack Bridge</h1>
+        <select id="mobile-nav" onchange="switchTab(this.value)" class="bg-slate-700 border-slate-600 text-white text-sm rounded-md p-1 focus:ring-blue-500 focus:border-blue-500">
+            <option value="paradigm">1. Paradigm Shift</option>
+            <option value="react">2. React</option>
+            <option value="aws">3. AWS</option>
+            <option value="communication">4. APIs</option>
+            <option value="rosetta">5. Rosetta Stone</option>
+        </select>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-full overflow-y-auto bg-slate-900 pt-16 md:pt-0 pb-20 relative">
+        <div class="max-w-5xl mx-auto p-6 md:p-10">
+
+            <!-- Section 1: Paradigm Shift -->
+            <section id="paradigm" class="tab-content active">
+                <div class="mb-8">
+                    <span class="px-3 py-1 text-xs font-semibold bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">The Foundation</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4 text-white">The Mental Shift</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        Moving from desktop C# or MATLAB scripts to a React/AWS architecture is like moving from a single, well-organized factory to a global, asynchronous supply chain.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-8">
+                    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                        <div class="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center mb-4 border border-orange-500/30">
+                            <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Desktop (C# / MATLAB)</h3>
+                        <ul class="space-y-3 text-slate-400">
+                            <li class="flex items-start"><span class="mr-2 text-orange-400">■</span> <strong>Stateful:</strong> The program stays open in memory. Variables persist until you close the app.</li>
+                            <li class="flex items-start"><span class="mr-2 text-orange-400">■</span> <strong>Synchronous:</strong> Code executes top-to-bottom. If MATLAB is crunching a matrix, the UI freezes unless you explicitly use threads.</li>
+                            <li class="flex items-start"><span class="mr-2 text-orange-400">■</span> <strong>Monolithic:</strong> UI, logic, and file access happen on the same machine.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-[0_0_30px_rgba(59,130,246,0.1)]">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-4 border border-blue-500/30">
+                            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-blue-100">Web (React / AWS)</h3>
+                        <ul class="space-y-3 text-slate-400">
+                            <li class="flex items-start"><span class="mr-2 text-blue-400">■</span> <strong>Stateless Backend:</strong> AWS Lambda functions wake up, process data, return it, and die. They forget everything immediately.</li>
+                            <li class="flex items-start"><span class="mr-2 text-blue-400">■</span> <strong>Asynchronous:</strong> Network requests take time. The frontend (React) must keep drawing the UI while waiting for the backend to reply.</li>
+                            <li class="flex items-start"><span class="mr-2 text-blue-400">■</span> <strong>Distributed:</strong> The UI runs on the user's browser. The logic runs on Amazon's servers.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: React -->
+            <section id="react" class="tab-content">
+                <div class="mb-8">
+                    <span class="px-3 py-1 text-xs font-semibold bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20">The Frontend</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4 text-white">React is just UI Classes</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        If you know C# Windows Forms or WPF, React is very similar. A "Component" is just a Class or UserControl. "State" is just private variables that, when changed, automatically trigger a UI redraw (like `INotifyPropertyChanged`).
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- C# Example -->
+                    <div>
+                        <div class="bg-slate-700/50 rounded-t-lg px-4 py-2 border-b border-slate-700 flex items-center">
+                            <span class="text-sm font-medium text-slate-300">C# WPF / WinForms Mental Model</span>
+                        </div>
+                        <div class="code-block rounded-t-none h-[400px]">
+<pre><code><span class="keyword">public class</span> <span class="type">CounterControl</span> : <span class="type">UserControl</span> 
+{
+    <span class="keyword">private int</span> _count = 0;
+
+    <span class="comment">// When this changes, UI updates automatically</span>
+    <span class="keyword">public int</span> Count 
+    {
+        <span class="keyword">get</span> { <span class="keyword">return</span> _count; }
+        <span class="keyword">set</span> 
+        { 
+            _count = value; 
+            <span class="function">NotifyPropertyChanged</span>(<span class="string">"Count"</span>); 
+        }
+    }
+
+    <span class="keyword">public void</span> <span class="function">OnButtonClick</span>(<span class="type">object</span> sender, <span class="type">EventArgs</span> e) 
+    {
+        <span class="comment">// Mutate state</span>
+        Count++; 
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- React Example -->
+                    <div>
+                        <div class="bg-slate-700/50 rounded-t-lg px-4 py-2 border-b border-slate-700 flex items-center">
+                            <span class="text-sm font-medium text-cyan-300">React Component (JavaScript/JSX)</span>
+                        </div>
+                        <div class="code-block rounded-t-none h-[400px]">
+<pre><code><span class="keyword">import</span> { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">export default function</span> <span class="function">CounterComponent</span>() {
+    <span class="comment">// Define state (variable) and setter (notifier)</span>
+    <span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(0);
+
+    <span class="keyword">const</span> <span class="function">handleButtonClick</span> = () => {
+        <span class="comment">// Update state (triggers re-render automatically)</span>
+        <span class="function">setCount</span>(count + 1);
+    };
+
+    <span class="comment">// The "Render" method returning HTML (JSX)</span>
+    <span class="keyword">return</span> (
+        <span class="tag">&lt;div&gt;</span>
+            <span class="tag">&lt;p&gt;</span>Count: {count}<span class="tag">&lt;/p&gt;</span>
+            <span class="tag">&lt;button</span> onClick={handleButtonClick}<span class="tag">&gt;</span>
+                Add 1
+            <span class="tag">&lt;/button&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+    );
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: AWS -->
+            <section id="aws" class="tab-content">
+                 <div class="mb-8">
+                    <span class="px-3 py-1 text-xs font-semibold bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">The Backend</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4 text-white">AWS: Someone Else's Computer</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        In MATLAB, you write a function and save variables to a `.mat` file on your hard drive. In AWS, you write a function (Lambda) and save variables to a cloud database (DynamoDB) or cloud drive (S3).
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Lambda -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 text-amber-500 group-hover:scale-110 transition-transform">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z"/></svg> <!-- Mock Lambda Icon -->
+                        </div>
+                        <h3 class="text-2xl font-bold text-amber-400 mb-2">AWS Lambda (The Processor)</h3>
+                        <p class="text-slate-400 mb-4"><strong>MATLAB equivalent:</strong> A standalone `.m` script function.<br><strong>C# equivalent:</strong> A specific method in a static class.</p>
+                        <p class="text-sm text-slate-300">
+                            Instead of running a server 24/7, Lambda lets you upload a piece of code (in Python, Node.js, C#, etc.). AWS keeps it dormant. When a request comes in (e.g., from your React app), AWS spins up a tiny container, runs your code, returns the answer, and shuts it down. You only pay for the exact milliseconds it runs.
+                        </p>
+                    </div>
+
+                    <!-- DynamoDB -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 relative overflow-hidden group">
+                        <h3 class="text-2xl font-bold text-blue-400 mb-2">Amazon DynamoDB (The Data)</h3>
+                        <p class="text-slate-400 mb-4"><strong>MATLAB equivalent:</strong> A massive Array of Structs.<br><strong>C# equivalent:</strong> A generic <code>Dictionary&lt;string, object&gt;</code>.</p>
+                        <p class="text-sm text-slate-300">
+                            It's a NoSQL database. Unlike a strict SQL table, every "row" (item) can have different "columns" (attributes). It is extremely fast and scales infinitely. You look up data using a Primary Key (just like a dictionary key).
+                        </p>
+                    </div>
+
+                    <!-- S3 -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 relative overflow-hidden group">
+                        <h3 class="text-2xl font-bold text-green-400 mb-2">Amazon S3 (The File System)</h3>
+                        <p class="text-slate-400 mb-4"><strong>MATLAB equivalent:</strong> <code>save('data.mat')</code> to `C:\Data`.<br><strong>C# equivalent:</strong> <code>File.WriteAllBytes()</code>.</p>
+                        <p class="text-sm text-slate-300">
+                            Simple Storage Service. It's basically a limitless hard drive in the cloud. You use this to store large files: images, PDFs, raw CSV data sets, or even the compiled HTML/JS files that make up your React application!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Communication -->
+            <section id="communication" class="tab-content">
+                <div class="mb-8">
+                    <span class="px-3 py-1 text-xs font-semibold bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/20">The Bridge</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4 text-white">How they talk: APIs & JSON</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        In a desktop app, your UI calls a function directly. In web dev, your React UI must send a text message (JSON) over the internet to a router (API Gateway), which hands it to your function (Lambda).
+                    </p>
+                </div>
+
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 mb-8">
+                    <h3 class="text-xl font-bold mb-4">The Asynchronous Problem</h3>
+                    <p class="text-slate-300 mb-4">In MATLAB, `data = processData(input);` stops the program until it's done. In JavaScript, doing this over the internet would freeze the browser window. We use <strong>Promises</strong> (the `async/await` keywords, identical to modern C#).</p>
+                    
+                    <div class="code-block">
+<pre><code><span class="comment">// C# Equivalent: public async Task&lt;Data&gt; GetDataAsync()</span>
+<span class="keyword">const</span> <span class="function">fetchDataFromAWS</span> = <span class="keyword">async</span> () => {
+    <span class="tag">try</span> {
+        <span class="comment">// 'await' pauses THIS function, but keeps UI responsive</span>
+        <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api-gateway-url.aws.com/prod/getData'</span>);
+        <span class="keyword">const</span> jsonData = <span class="keyword">await</span> response.<span class="function">json</span>();
+        
+        <span class="function">console.log</span>(<span class="string">"Got data: "</span>, jsonData);
+        <span class="comment">// Update React state here...</span>
+    } <span class="tag">catch</span> (error) {
+        <span class="function">console.error</span>(<span class="string">"Network error!"</span>, error);
+    }
+};</code></pre>
+                    </div>
+                </div>
+
+                <!-- Architectural Diagram Mockup -->
+                <div class="p-8 bg-slate-900 rounded-xl border border-slate-700 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="bg-cyan-500/20 border border-cyan-500 p-4 rounded-lg shadow-lg shadow-cyan-500/20">
+                            <span class="font-bold text-cyan-300 block">React App</span>
+                            <span class="text-xs text-slate-400">User's Browser</span>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center w-full md:w-1/4 flex flex-col items-center">
+                        <span class="text-xs text-purple-400 mb-2 font-mono">fetch() / JSON</span>
+                        <div class="w-full h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded relative">
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 border-t-2 border-r-2 border-purple-500 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="bg-purple-500/20 border border-purple-500 p-4 rounded-lg shadow-lg shadow-purple-500/20">
+                            <span class="font-bold text-purple-300 block">API Gateway</span>
+                            <span class="text-xs text-slate-400">AWS URL Endpoint</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center w-full md:w-1/4 flex flex-col items-center">
+                        <span class="text-xs text-amber-400 mb-2 font-mono">Triggers</span>
+                        <div class="w-full h-1 bg-gradient-to-r from-purple-500 to-amber-500 rounded relative">
+                             <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 border-t-2 border-r-2 border-amber-500 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="bg-amber-500/20 border border-amber-500 p-4 rounded-lg shadow-lg shadow-amber-500/20">
+                            <span class="font-bold text-amber-300 block">Lambda</span>
+                            <span class="text-xs text-slate-400">Your Code</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Rosetta Stone -->
+            <section id="rosetta" class="tab-content">
+                <div class="mb-8">
+                    <span class="px-3 py-1 text-xs font-semibold bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20">Dictionary</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-4 text-white">The Rosetta Stone</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed">
+                        A quick reference table to translate your thoughts from desktop/math environments to the modern web stack.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-700">
+                    <table class="w-full text-left border-collapse bg-slate-800">
+                        <thead>
+                            <tr class="bg-slate-900 border-b border-slate-700">
+                                <th class="p-4 text-slate-300 font-semibold w-1/4">Concept</th>
+                                <th class="p-4 text-slate-300 font-semibold w-1/4">MATLAB</th>
+                                <th class="p-4 text-slate-300 font-semibold w-1/4">C# / .NET</th>
+                                <th class="p-4 text-emerald-400 font-semibold w-1/4">React / AWS</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700/50">
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Visual Element</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">uicontrol</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">UserControl / Form</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">React Component</td>
+                            </tr>
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Local Variables (UI)</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">handles / guidata</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">Private Fields</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">useState Hook</td>
+                            </tr>
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Update UI Data</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">set(handle, 'String')</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">INotifyPropertyChanged</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">setState() <span class="text-xs text-slate-500">(Auto renders)</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Main Function Logic</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">Function Script (.m)</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">Controller / Service Class</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">AWS Lambda Function</td>
+                            </tr>
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Data File Saving</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">save('data.mat')</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">File.WriteAllText()</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">AWS S3</td>
+                            </tr>
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Tabular Data / Hash</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">containers.Map</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">Entity Framework / Dictionary</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">AWS DynamoDB</td>
+                            </tr>
+                            <tr class="hover:bg-slate-750 transition-colors">
+                                <td class="p-4 font-medium text-white">Packaging / Exe</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">MATLAB Compiler</td>
+                                <td class="p-4 text-slate-400 font-mono text-sm">.exe / .dll build</td>
+                                <td class="p-4 text-emerald-300 font-mono text-sm">Webpack / Vite (JS bundle)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Interactive Quiz / Playground -->
+                <div class="mt-12 bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold mb-4 text-white">Knowledge Check</h3>
+                    <p class="text-sm text-slate-400 mb-6">Select the web equivalent for the C#/MATLAB concept.</p>
+                    
+                    <div id="quiz-container" class="space-y-4">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Reset button styles
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.className = "w-full text-left px-4 py-2 rounded-md transition-colors text-slate-300 hover:bg-slate-700/50 hover:text-white";
+            });
+
+            // Show active content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Set active button style (desktop)
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if(activeBtn) {
+                activeBtn.className = "w-full text-left px-4 py-2 rounded-md transition-colors bg-blue-600/20 text-blue-400 font-medium";
+            }
+
+            // Sync mobile dropdown
+            const mobileNav = document.getElementById('mobile-nav');
+            if(mobileNav.value !== tabId) {
+                mobileNav.value = tabId;
+            }
+        }
+
+        // Simple Interactive Quiz Data
+        const quizData = [
+            {
+                question: "I have a C# Method `CalculateTrajectory()` that takes 5 seconds to run on my server. In the AWS world, I should deploy this as...",
+                options: ["An S3 Bucket", "A React Component", "An AWS Lambda Function"],
+                answer: 2,
+                explanation: "Correct! AWS Lambda is compute space. You upload the code, and AWS executes it on demand."
+            },
+            {
+                question: "I want a user interface element that updates its text when a variable changes. Instead of WinForms data binding, in React I use...",
+                options: ["AWS DynamoDB", "The useState Hook", "The fetch() API"],
+                answer: 1,
+                explanation: "Correct! `useState` provides the variable and the setter function that triggers a UI re-render."
+            }
+        ];
+
+        // Render Quiz
+        const quizContainer = document.getElementById('quiz-container');
+        
+        quizData.forEach((q, index) => {
+            const block = document.createElement('div');
+            block.className = "bg-slate-900 p-4 rounded-lg border border-slate-700";
+            
+            let html = `<p class="font-medium text-slate-200 mb-3">${index + 1}. ${q.question}</p><div class="space-x-2">`;
+            
+            q.options.forEach((opt, optIndex) => {
+                html += `<button onclick="checkAnswer(${index}, ${optIndex}, this)" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-sm rounded-md transition-colors">${opt}</button>`;
+            });
+            
+            html += `</div><p id="feedback-${index}" class="mt-3 text-sm hidden"></p>`;
+            block.innerHTML = html;
+            quizContainer.appendChild(block);
+        });
+
+        // Handle quiz answers
+        window.checkAnswer = function(qIndex, optIndex, btnElement) {
+            const q = quizData[qIndex];
+            const feedbackEl = document.getElementById(`feedback-${qIndex}`);
+            const parent = btnElement.parentElement;
+            
+            // Disable all buttons in this row
+            Array.from(parent.children).forEach(btn => btn.disabled = true);
+            
+            feedbackEl.classList.remove('hidden');
+            
+            if (q.answer === optIndex) {
+                btnElement.classList.replace('bg-slate-700', 'bg-emerald-600');
+                btnElement.classList.replace('hover:bg-slate-600', 'hover:bg-emerald-600');
+                feedbackEl.className = "mt-3 text-sm text-emerald-400";
+                feedbackEl.innerHTML = `✓ ${q.explanation}`;
+            } else {
+                btnElement.classList.replace('bg-slate-700', 'bg-red-600');
+                btnElement.classList.replace('hover:bg-slate-600', 'hover:bg-red-600');
+                
+                // Highlight correct one
+                parent.children[q.answer].classList.replace('bg-slate-700', 'bg-emerald-600');
+                
+                feedbackEl.className = "mt-3 text-sm text-red-400";
+                feedbackEl.innerHTML = `✗ Incorrect. ${q.explanation}`;
+            }
+        };
+    </script>
+</body>
+</html>
